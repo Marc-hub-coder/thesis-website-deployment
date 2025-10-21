@@ -1,4 +1,45 @@
-# Getting Started with Create React App
+# VOG & Air Quality Dashboard Frontend
+
+This is the frontend for the VOG & Air Quality Dashboard, built with React and deployed on Render.
+
+## 🚀 Deployment on Render
+
+This frontend is configured to be deployed on Render as a Static Site. The backend is deployed separately and connected via environment variables.
+
+### Prerequisites
+
+- Your backend deployed on Render (get the URL from your Render dashboard)
+- Firebase project (if using Firebase for sensor data)
+
+### Environment Variables
+
+Configure these environment variables in your Render dashboard:
+
+```env
+REACT_APP_PREDICTION_API_URL=https://your-backend-name.onrender.com
+REACT_APP_API_BASE_URL=https://your-backend-name.onrender.com/api
+
+# Firebase Configuration (if using Firebase)
+REACT_APP_FIREBASE_API_KEY=your_firebase_api_key
+REACT_APP_FIREBASE_AUTH_DOMAIN=your_project.firebaseapp.com
+REACT_APP_FIREBASE_DB_URL=https://your_project-default-rtdb.firebaseio.com/
+REACT_APP_FIREBASE_PROJECT_ID=your_project_id
+REACT_APP_FIREBASE_STORAGE_BUCKET=your_project.appspot.com
+REACT_APP_FIREBASE_MESSAGING_SENDER_ID=your_sender_id
+REACT_APP_FIREBASE_APP_ID=your_app_id
+```
+
+### Deploy to Render
+
+1. Connect your GitHub repository to Render
+2. Create a new Static Site
+3. Use the following settings:
+   - **Build Command**: `npm install && npm run build`
+   - **Publish Directory**: `build`
+4. Add the environment variables listed above
+5. Deploy!
+
+## Getting Started
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 

@@ -4,7 +4,7 @@ import { db, ensureEmailPasswordAuth } from './firebaseClient';
 // Report Service for Admin Reports
 class ReportService {
   constructor() {
-    this.API_BASE_URL = process.env.REACT_APP_API_BASE_URL || 'http://localhost:3001/api';
+    this.API_BASE_URL = process.env.REACT_APP_API_BASE_URL || 'https://thesis-backend-zrcb.onrender.com';
   }
 
   // Generate comprehensive report based on configuration

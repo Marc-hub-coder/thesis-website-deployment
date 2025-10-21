@@ -1,4 +1,4 @@
-const PREDICTION_API_BASE_URL = process.env.REACT_APP_PREDICTION_API_URL || 'http://localhost:5000';
+const PREDICTION_API_BASE_URL = process.env.REACT_APP_PREDICTION_API_URL || 'https://thesis-backend-zrcb.onrender.com';
 
 class PredictionService {
   async getPredictions(location = '') {
