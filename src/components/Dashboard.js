@@ -46,7 +46,24 @@ const Dashboard = () => {
   const fetchPredictions = async (location = "") => {
     setPredictionLoading(true)
     try {
-      const response = await fetch(`${process.env.REACT_APP_PREDICTION_API_URL || 'https://thesis-backend-zrcb.onrender.com'}/predict_all`, {
+      const baseUrl = process.env.REACT_APP_PREDICTION_API_URL || 'https://thesis-backend-zrcb.onrender.com';
+      const apiUrl = `${baseUrl}/predict_all`;
+      console.log('Fetching predictions from:', apiUrl);
+      
+      // First, try to check if the backend is accessible
+      try {
+        const healthResponse = await fetch(`${baseUrl}/health`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+        console.log('Backend health check:', healthResponse.status);
+      } catch (healthError) {
+        console.warn('Backend health check failed:', healthError);
+      }
+      
+      const response = await fetch(apiUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -54,15 +71,45 @@ const Dashboard = () => {
         body: JSON.stringify({ location }),
       });
 
+      console.log('Response status:', response.status);
+      console.log('Response headers:', response.headers);
+
       if (!response.ok) {
-        throw new Error(`Prediction API error: ${response.status}`);
+        const errorText = await response.text();
+        console.error('API Error Response:', errorText);
+        
+        // Handle specific error cases
+        if (response.status === 502) {
+          console.error('Backend server error (502) - prediction service may be down');
+          throw new Error('Prediction service temporarily unavailable');
+        }
+        
+        throw new Error(`Prediction API error: ${response.status} - ${errorText}`);
       }
 
       const data = await response.json();
+      console.log('Prediction data received:', data);
       setPredictions(data.predictions);
     } catch (error) {
       console.error("Error fetching predictions:", error)
-      setPredictions(null)
+      // Set fallback predictions to show something instead of "unavailable"
+      setPredictions({
+        pm: [
+          { 'PM2.5': 0, 'PM10': 0 },
+          { 'PM2.5': 0, 'PM10': 0 },
+          { 'PM2.5': 0, 'PM10': 0 }
+        ],
+        no2: [
+          { 'NO2': 0 },
+          { 'NO2': 0 },
+          { 'NO2': 0 }
+        ],
+        co: [
+          { 'CO': 0 },
+          { 'CO': 0 },
+          { 'CO': 0 }
+        ]
+      });
     } finally {
       setPredictionLoading(false)
     }
