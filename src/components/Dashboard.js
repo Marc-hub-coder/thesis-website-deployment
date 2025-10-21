@@ -43,7 +43,7 @@ const Dashboard = () => {
     }
   }
 
-  // Function to fetch predictions
+  // Function to fetch predictions from backend
   const fetchPredictions = async (location = "") => {
     setPredictionLoading(true)
     try {
@@ -1249,7 +1249,7 @@ const Dashboard = () => {
               </div>
             </div>
 
-            {/* Prediction Cards - Moved below humidity and temperature */}
+            {/* Prediction Cards - Display backend prediction results */}
             <div className="prediction-cards-container">
               <div className="info-card">
                 <div className="card-header">
@@ -1371,6 +1371,7 @@ const Dashboard = () => {
                 )}
               </div>
             </div>
+
           </div>
 
 
