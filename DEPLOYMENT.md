@@ -27,15 +27,15 @@ REACT_APP_PREDICTION_API_URL=https://thesis-backend-zrcb.onrender.com
 REACT_APP_API_BASE_URL=https://thesis-backend-zrcb.onrender.com/api
 ```
 
-#### Firebase Variables (if using Firebase):
+#### Firebase Variables (configured):
 ```env
-REACT_APP_FIREBASE_API_KEY=your_firebase_api_key
-REACT_APP_FIREBASE_AUTH_DOMAIN=your_project.firebaseapp.com
-REACT_APP_FIREBASE_DB_URL=https://your_project-default-rtdb.firebaseio.com/
-REACT_APP_FIREBASE_PROJECT_ID=your_project_id
-REACT_APP_FIREBASE_STORAGE_BUCKET=your_project.appspot.com
-REACT_APP_FIREBASE_MESSAGING_SENDER_ID=your_sender_id
-REACT_APP_FIREBASE_APP_ID=your_app_id
+REACT_APP_FIREBASE_API_KEY=AIzaSyAYrAf_pQjFhwBg5uhEoDdiajahyJubEzw
+REACT_APP_FIREBASE_AUTH_DOMAIN=air-quality-monitoring-f97b2.firebaseapp.com
+REACT_APP_FIREBASE_DB_URL=https://air-quality-monitoring-f97b2-default-rtdb.asia-southeast1.firebasedatabase.app
+REACT_APP_FIREBASE_PROJECT_ID=air-quality-monitoring-f97b2
+REACT_APP_FIREBASE_STORAGE_BUCKET=air-quality-monitoring-f97b2.firebasestorage.app
+REACT_APP_FIREBASE_MESSAGING_SENDER_ID=390745277112
+REACT_APP_FIREBASE_APP_ID=1:390745277112:web:2858ecf8e886b83e16ea4d
 ```
 
 ### Step 5: Deploy

@@ -12,13 +12,40 @@ const firebaseConfig = {
   appId: process.env.REACT_APP_FIREBASE_APP_ID
 };
 
-const app = firebase.apps.length ? firebase.app() : firebase.initializeApp(firebaseConfig);
-const auth = firebase.auth();
-const db = firebase.database();
+// Check if Firebase is configured
+const isFirebaseConfigured = firebaseConfig.apiKey && 
+  firebaseConfig.authDomain && 
+  firebaseConfig.databaseURL && 
+  firebaseConfig.projectId;
+
+let app, auth, db;
+
+if (isFirebaseConfigured) {
+  try {
+    app = firebase.apps.length ? firebase.app() : firebase.initializeApp(firebaseConfig);
+    auth = firebase.auth();
+    db = firebase.database();
+  } catch (error) {
+    console.warn('Firebase initialization failed:', error);
+    app = null;
+    auth = null;
+    db = null;
+  }
+} else {
+  console.warn('Firebase not configured - missing environment variables');
+  app = null;
+  auth = null;
+  db = null;
+}
 
 let authReadyPromise;
 
 export function ensureEmailPasswordAuth() {
+  if (!auth || !db) {
+    console.warn('Firebase not available - skipping authentication');
+    return Promise.resolve(null);
+  }
+  
   if (!authReadyPromise) {
     authReadyPromise = new Promise((resolve, reject) => {
       const unsub = auth.onAuthStateChanged((user) => {
