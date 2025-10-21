@@ -6,9 +6,9 @@ services:
     staticPublishPath: ./build
     envVars:
       - key: REACT_APP_PREDICTION_API_URL
-        sync: false
+        value: https://thesis-backend-zrcb.onrender.com
       - key: REACT_APP_API_BASE_URL
-        sync: false
+        value: https://thesis-backend-zrcb.onrender.com/api
       - key: REACT_APP_FIREBASE_API_KEY
         sync: false
       - key: REACT_APP_FIREBASE_AUTH_DOMAIN

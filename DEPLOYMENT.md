@@ -24,7 +24,7 @@ Add these environment variables in the Render dashboard:
 #### Required Variables:
 ```env
 REACT_APP_PREDICTION_API_URL=https://thesis-backend-zrcb.onrender.com
-REACT_APP_API_BASE_URL=https://your-backend-name.onrender.com/api
+REACT_APP_API_BASE_URL=https://thesis-backend-zrcb.onrender.com/api
 ```
 
 #### Firebase Variables (if using Firebase):

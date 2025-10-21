@@ -2,7 +2,7 @@
 // Run this in your browser console after deployment
 
 async function testBackendConnection() {
-  const backendUrl = process.env.REACT_APP_PREDICTION_API_URL || 'https://your-backend-name.onrender.com';
+  const backendUrl = process.env.REACT_APP_PREDICTION_API_URL || 'https://thesis-backend-zrcb.onrender.com';
   
   console.log('Testing backend connection...');
   console.log('Backend URL:', backendUrl);
