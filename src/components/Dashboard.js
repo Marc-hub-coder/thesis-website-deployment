@@ -6,7 +6,6 @@ import "../styles/Dashboard.css"
 import "bootstrap/dist/css/bootstrap.min.css"
 import { sensorService } from "../services/sensorService.js"
 import { adminService } from "../services/adminService"
-import { predictionService } from "../services/predictionService.js"
 
 const Dashboard = () => {
   const [sensorData, setSensorData] = useState(null)
@@ -47,8 +46,20 @@ const Dashboard = () => {
   const fetchPredictions = async (location = "") => {
     setPredictionLoading(true)
     try {
-      const predictionData = await predictionService.getPredictions(location)
-      setPredictions(predictionData)
+      const response = await fetch(`${process.env.REACT_APP_PREDICTION_API_URL || 'https://thesis-backend-zrcb.onrender.com'}/predict_all`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ location }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Prediction API error: ${response.status}`);
+      }
+
+      const data = await response.json();
+      setPredictions(data.predictions);
     } catch (error) {
       console.error("Error fetching predictions:", error)
       setPredictions(null)
@@ -1262,15 +1273,17 @@ const Dashboard = () => {
                   <div className="maintenance-text">UNDER MAINTENANCE</div>
                 ) : predictionLoading ? (
                   <div className="loading-text">Loading predictions...</div>
-                ) : predictions ? (
+                ) : predictions?.pm ? (
                   (() => {
-                    const top3 = predictionService.getTop3HourSummary(predictions)
+                    const pmData = predictions.pm.slice(0, 3); // Get first 3 hours
                     return (
                       <>
                         <div className="predicted-lines">
-                          <div>Hour 1: {top3.pm25[0]}</div>
-                          <div>Hour 2: {top3.pm25[1]}</div>
-                          <div>Hour 3: {top3.pm25[2]}</div>
+                          {pmData.map((prediction, index) => (
+                            <div key={index}>
+                              Hour {index + 1}: {prediction['PM2.5']?.toFixed(2) || 'N/A'} μg/m³
+                            </div>
+                          ))}
                         </div>
                         <p>Particulate Matter 2.5</p>
                       </>
@@ -1292,15 +1305,17 @@ const Dashboard = () => {
                   <div className="maintenance-text">UNDER MAINTENANCE</div>
                 ) : predictionLoading ? (
                   <div className="loading-text">Loading predictions...</div>
-                ) : predictions ? (
+                ) : predictions?.pm ? (
                   (() => {
-                    const top3 = predictionService.getTop3HourSummary(predictions)
+                    const pmData = predictions.pm.slice(0, 3); // Get first 3 hours
                     return (
                       <>
                         <div className="predicted-lines">
-                          <div>Hour 1: {top3.pm10[0]}</div>
-                          <div>Hour 2: {top3.pm10[1]}</div>
-                          <div>Hour 3: {top3.pm10[2]}</div>
+                          {pmData.map((prediction, index) => (
+                            <div key={index}>
+                              Hour {index + 1}: {prediction['PM10']?.toFixed(2) || 'N/A'} μg/m³
+                            </div>
+                          ))}
                         </div>
                         <p>Particulate Matter 10</p>
                       </>
@@ -1322,15 +1337,17 @@ const Dashboard = () => {
                   <div className="maintenance-text">UNDER MAINTENANCE</div>
                 ) : predictionLoading ? (
                   <div className="loading-text">Loading predictions...</div>
-                ) : predictions ? (
+                ) : predictions?.no2 ? (
                   (() => {
-                    const top3 = predictionService.getTop3HourSummary(predictions)
+                    const no2Data = predictions.no2.slice(0, 3); // Get first 3 hours
                     return (
                       <>
                         <div className="predicted-lines">
-                          <div>Hour 1: {top3.no2[0]}</div>
-                          <div>Hour 2: {top3.no2[1]}</div>
-                          <div>Hour 3: {top3.no2[2]}</div>
+                          {no2Data.map((prediction, index) => (
+                            <div key={index}>
+                              Hour {index + 1}: {prediction['NO2']?.toFixed(2) || 'N/A'} ppm
+                            </div>
+                          ))}
                         </div>
                         <p>Nitrogen Dioxide</p>
                       </>
@@ -1352,15 +1369,17 @@ const Dashboard = () => {
                   <div className="maintenance-text">UNDER MAINTENANCE</div>
                 ) : predictionLoading ? (
                   <div className="loading-text">Loading predictions...</div>
-                ) : predictions ? (
+                ) : predictions?.co ? (
                   (() => {
-                    const top3 = predictionService.getTop3HourSummary(predictions)
+                    const coData = predictions.co.slice(0, 3); // Get first 3 hours
                     return (
                       <>
                         <div className="predicted-lines">
-                          <div>Hour 1: {top3.co[0]}</div>
-                          <div>Hour 2: {top3.co[1]}</div>
-                          <div>Hour 3: {top3.co[2]}</div>
+                          {coData.map((prediction, index) => (
+                            <div key={index}>
+                              Hour {index + 1}: {prediction['CO']?.toFixed(2) || 'N/A'} ppm
+                            </div>
+                          ))}
                         </div>
                         <p>Carbon Monoxide</p>
                       </>
