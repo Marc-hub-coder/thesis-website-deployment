@@ -1,0 +1,452 @@
+/* Admin Dashboard Styles */
+.admin-dashboard {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Override navbar styling for admin dashboard */
+.admin-dashboard .dashboard-navbar {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.admin-dashboard .dashboard-link {
+  color: white;
+  padding: 8px 16px;
+  border-radius: 8px;
+}
+
+.admin-dashboard .dashboard-link:hover {
+  text-decoration: none;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.admin-dashboard .dashboard-link.active {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 8px;
+  padding: 8px 16px;
+}
+
+.admin-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 20px;
+  flex: 1;
+}
+
+.admin-title {
+  text-align: center;
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: white;
+  margin-bottom: 30px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Real-time Date/Time Display */
+.datetime-display {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+}
+
+.current-date,
+.current-time {
+  font-weight: 600;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.current-date {
+  font-size: 1.1rem;
+}
+
+.current-time {
+  font-size: 1.4rem;
+  font-family: 'Courier New', monospace;
+}
+
+/* Admin Sections */
+.admin-sections {
+  display: grid;
+  gap: 30px;
+  margin-bottom: 40px;
+}
+
+.admin-section {
+  background: white;
+  border-radius: 15px;
+  padding: 30px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e1e5e9;
+}
+
+.section-title {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #333;
+  margin: 0 0 25px 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-bottom: 3px solid #667eea;
+  padding-bottom: 10px;
+}
+
+/* Maintenance Controls */
+.maintenance-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 15px;
+}
+
+.maintenance-item {
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 15px;
+  border: 2px solid #e1e5e9;
+  transition: all 0.3s ease;
+}
+
+.maintenance-item:hover {
+  border-color: #667eea;
+  background: #e9ecef;
+}
+
+.maintenance-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 500;
+  color: #333;
+  cursor: pointer;
+}
+
+.maintenance-label input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: #667eea;
+}
+
+/* Sensor Controls */
+.sensor-controls {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.sensor-control {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.sensor-control label {
+  font-weight: 600;
+  color: #555;
+  font-size: 0.95rem;
+}
+
+.sensor-control input,
+.sensor-control select {
+  padding: 12px 15px;
+  border: 2px solid #e1e5e9;
+  border-radius: 8px;
+  font-size: 1rem;
+  background: #f8f9fa;
+  transition: all 0.3s ease;
+}
+
+.sensor-control input:focus,
+.sensor-control select:focus {
+  outline: none;
+  border-color: #667eea;
+  background: white;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+/* Quick Actions */
+.quick-actions {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.action-btn {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.action-btn.emergency {
+  background: #ff6b6b;
+  color: white;
+}
+
+.action-btn.emergency:hover {
+  background: #ff5252;
+}
+
+.action-btn.maintenance {
+  background: #ffd93d;
+  color: #333;
+}
+
+.action-btn.maintenance:hover {
+  background: #ffc107;
+}
+
+.action-btn.normal {
+  background: #6bcf7f;
+  color: white;
+}
+
+.action-btn.normal:hover {
+  background: #4caf50;
+}
+
+/* Reports Section */
+.reports-highlight {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 15px;
+  padding: 25px;
+  color: white;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.reports-info h3 {
+  color: white;
+  font-size: 1.4rem;
+  margin-bottom: 15px;
+  font-weight: 600;
+}
+
+.reports-info p {
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 20px;
+  line-height: 1.6;
+}
+
+.reports-info ul {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 25px;
+}
+
+.reports-info li {
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 8px;
+  padding-left: 20px;
+  position: relative;
+}
+
+.reports-info li:before {
+  content: "•";
+  color: #ffd93d;
+  font-weight: bold;
+  position: absolute;
+  left: 0;
+}
+
+.reports-link {
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  text-decoration: none;
+  padding: 12px 25px;
+  border-radius: 8px;
+  font-weight: 600;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.reports-link:hover {
+  background: rgba(255, 255, 255, 0.3);
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+/* Logout button tweak to look like a link */
+.logout-btn {
+  background: transparent;
+  color: white;
+  border: 0;
+  cursor: pointer;
+  font-weight: 600;
+  padding: 8px 16px;
+  border-radius: 8px;
+}
+.logout-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* Admin Actions */
+.admin-actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+.save-btn {
+  padding: 15px 40px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-weight: bold;
+  font-size: 1.1rem;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+}
+
+.save-btn:hover {
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+}
+
+/* Admin Login */
+.admin-login-card {
+  max-width: 520px;
+  margin: 0 auto;
+  background: white;
+  border-radius: 15px;
+  padding: 30px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e1e5e9;
+}
+
+.admin-login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.admin-login-form .form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.admin-login-form label {
+  font-weight: 600;
+  color: #555;
+}
+
+.admin-login-form input {
+  padding: 12px 15px;
+  border: 2px solid #e1e5e9;
+  border-radius: 8px;
+  font-size: 1rem;
+  background: #f8f9fa;
+  transition: all 0.3s ease;
+}
+
+.admin-login-form input:focus {
+  outline: none;
+  border-color: #667eea;
+  background: white;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.admin-login-btn {
+  width: 100%;
+  margin-top: 8px;
+}
+
+.form-error {
+  color: #ff4d4f;
+  background: #fff2f0;
+  border: 1px solid #ffccc7;
+  padding: 10px 12px;
+  border-radius: 8px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .admin-container {
+    padding: 15px;
+  }
+  
+  .admin-title {
+    font-size: 2rem;
+    margin-bottom: 30px;
+  }
+  
+  .admin-section {
+    padding: 20px;
+  }
+  
+  .maintenance-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .sensor-controls {
+    grid-template-columns: 1fr;
+  }
+  
+  .quick-actions {
+    flex-direction: column;
+  }
+  
+  .action-btn {
+    width: 100%;
+    text-align: center;
+  }
+  
+  .reports-highlight {
+    padding: 20px;
+  }
+  
+  .reports-info h3 {
+    font-size: 1.2rem;
+  }
+  
+  .reports-link {
+    width: 100%;
+    text-align: center;
+  }
+  
+  .datetime-display {
+    flex-direction: column;
+    gap: 15px;
+    text-align: center;
+  }
+  
+  .current-date,
+  .current-time {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .admin-title {
+    font-size: 1.8rem;
+  }
+  
+  .section-title {
+    font-size: 1.3rem;
+  }
+  
+  .save-btn {
+    padding: 12px 30px;
+    font-size: 1rem;
+  }
+} 

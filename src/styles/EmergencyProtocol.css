@@ -1,0 +1,552 @@
+/* Emergency Protocol Page Styles */
+.emergency-protocol-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Override navbar styling for admin emergency protocol */
+.emergency-protocol-page .dashboard-navbar {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.emergency-protocol-page .dashboard-link {
+  color: white;
+  padding: 8px 16px;
+  border-radius: 8px;
+}
+
+.emergency-protocol-page .dashboard-link:hover {
+  text-decoration: none;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.emergency-protocol-page .dashboard-link.active {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 8px;
+  padding: 8px 16px;
+}
+
+.emergency-protocol-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 20px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.emergency-protocol-title {
+  text-align: center;
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: white;
+  margin-bottom: 30px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* VOG Information Card */
+.vog-info-card {
+  background: white;
+  border-radius: 15px;
+  padding: 30px;
+  margin-bottom: 40px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e1e5e9;
+  max-width: 1000px;
+  width: 100%;
+}
+
+.vog-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.vog-icon {
+  font-size: 2.5rem;
+  color: #667eea;
+}
+
+.vog-title {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #333;
+  margin: 0;
+  text-align: center;
+}
+
+.vog-description {
+  font-size: 1.3rem;
+  color: #555;
+  margin: 0;
+  line-height: 1.6;
+  text-align: justify;
+}
+
+/* Protocol Cards */
+.protocol-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  width: 100%;
+  max-width: 1900px;
+}
+
+.protocol-card {
+  background: white;
+  border-radius: 15px;
+  padding: 30px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e1e5e9;
+  height: auto;
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.protocol-card:hover {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+.protocol-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+  flex: 1;
+}
+
+.protocol-text {
+  flex: 1;
+}
+
+.protocol-heading {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #333;
+  margin: 0 0 10px 0;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.protocol-description {
+  font-size: 1.1rem;
+  color: #555;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.protocol-icon {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  border-radius: 50%;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.protocol-footer {
+  margin-top: 15px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.priority-badge {
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.priority-badge.high {
+  background: #ff6b6b;
+  color: white;
+}
+
+.priority-badge.medium {
+  background: #ffd93d;
+  color: #333;
+}
+
+.priority-badge.low {
+  background: #6bcf7f;
+  color: white;
+}
+
+.icon {
+  font-size: 2.5rem;
+}
+
+.house-icon {
+  font-size: 2.5rem;
+}
+
+.mask-icon {
+  font-size: 2.5rem;
+}
+
+/* Admin Protocol Styles */
+.admin-controls {
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.add-protocol-btn {
+  background: linear-gradient(135deg, #99a9f3, #b07ae6);
+  color: white;
+  border: none;
+  border-radius: 25px;
+  padding: 15px 30px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+.add-protocol-btn:hover {
+  box-shadow: 0 6px 16px rgba(102, 126, 234, 0.4);
+}
+
+.edit-btn-protocol,
+.delete-btn-protocol {
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-left: 8px;
+  padding: 4px;
+  border-radius: 50%;
+  font-size: 1.2rem;
+}
+
+.edit-btn-protocol:hover {
+  background: rgba(255, 215, 0, 0.2);
+}
+
+.delete-btn-protocol:hover {
+  background: rgba(255, 107, 107, 0.2);
+}
+
+.edit-protocol-heading {
+  width: 100%;
+  background: white;
+  border: 2px solid #e1e5e9;
+  border-radius: 8px;
+  padding: 12px;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #333;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 10px;
+  transition: border-color 0.3s ease;
+}
+
+.edit-protocol-heading:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.edit-protocol-description {
+  width: 100%;
+  background: white;
+  border: 2px solid #e1e5e9;
+  border-radius: 8px;
+  padding: 12px;
+  font-size: 1.1rem;
+  color: #555;
+  line-height: 1.4;
+  resize: vertical;
+  min-height: 80px;
+  transition: border-color 0.3s ease;
+}
+
+.edit-protocol-description:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.edit-protocol-icon {
+  width: 60px;
+  height: 60px;
+  border: 2px solid #e1e5e9;
+  border-radius: 50%;
+  text-align: center;
+  font-size: 2rem;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  transition: border-color 0.3s ease;
+}
+
+.edit-protocol-icon:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.priority-select {
+  padding: 8px 12px;
+  border: 2px solid #e1e5e9;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  background: white;
+  transition: border-color 0.3s ease;
+}
+
+.priority-select:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.edit-actions {
+  display: flex;
+  gap: 8px;
+  margin-left: 12px;
+}
+
+.save-btn-small,
+.cancel-btn-small {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 50%;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+.save-btn-small {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+}
+
+.save-btn-small:hover {
+  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+}
+
+.cancel-btn-small {
+  background: linear-gradient(135deg, #ff6b6b, #ee5a52);
+  color: white;
+}
+
+.cancel-btn-small:hover {
+  box-shadow: 0 2px 8px rgba(255, 107, 107, 0.3);
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .emergency-protocol-container {
+    max-width: 1200px;
+  }
+  
+  .protocol-cards {
+    max-width: 1200px;
+    gap: 25px;
+  }
+  
+  .vog-info-card {
+    max-width: 900px;
+  }
+  
+  .vog-icon {
+    font-size: 2.2rem;
+  }
+  
+  .vog-title {
+    font-size: 1.6rem;
+  }
+  
+  .vog-description {
+    font-size: 1.2rem;
+  }
+  
+  .protocol-icon {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .priority-badge {
+    font-size: 0.7rem;
+    padding: 3px 10px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .emergency-protocol-container {
+    max-width: 1000px;
+  }
+  
+  .protocol-cards {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
+    max-width: 1000px;
+  }
+  
+  .protocol-card {
+    min-height: 160px;
+    padding: 25px;
+  }
+  
+  .vog-info-card {
+    max-width: 800px;
+    padding: 25px;
+  }
+  
+  .vog-description {
+    font-size: 1rem;
+  }
+  
+  .vog-title {
+    font-size: 1.6rem;
+  }
+  
+  .vog-description {
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .emergency-protocol-container {
+    padding: 15px;
+  }
+  
+  .emergency-protocol-title {
+    font-size: 2rem;
+    margin-bottom: 25px;
+  }
+  
+  .protocol-cards {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+  
+  .protocol-card {
+    height: auto;
+    min-height: 150px;
+    padding: 20px;
+  }
+  
+  .protocol-heading {
+    font-size: 1.3rem;
+  }
+  
+  .protocol-description {
+    font-size: 1rem;
+  }
+  
+  .house-icon,
+  .mask-icon {
+    font-size: 2rem;
+  }
+  
+  .icon {
+    font-size: 2rem;
+  }
+
+  .vog-info-card {
+    max-width: 600px;
+    padding: 20px;
+    margin-bottom: 30px;
+  }
+  
+  .vog-icon {
+    font-size: 2rem;
+  }
+  
+  .vog-title {
+    font-size: 1.4rem;
+  }
+  
+  .vog-description {
+    font-size: 1.1rem;
+  }
+  
+  .protocol-card {
+    min-height: 180px;
+    padding: 20px;
+  }
+  
+  .protocol-icon {
+    width: 45px;
+    height: 45px;
+  }
+  
+  .priority-badge {
+    font-size: 0.65rem;
+    padding: 2px 8px;
+  }
+
+  .edit-actions {
+    flex-direction: column;
+    margin-left: 0;
+    margin-top: 8px;
+  }
+  
+  .edit-protocol-icon {
+    width: 50px;
+    height: 50px;
+    font-size: 1.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .emergency-protocol-container {
+    padding: 15px;
+  }
+  
+  .emergency-protocol-title {
+    font-size: 1.8rem;
+    margin-bottom: 25px;
+  }
+  
+  .vog-info-card {
+    max-width: 500px;
+    padding: 15px;
+    margin-bottom: 25px;
+  }
+  
+  .vog-icon {
+    font-size: 1.8rem;
+  }
+  
+  .vog-title {
+    font-size: 1.2rem;
+  }
+  
+  .vog-description {
+    font-size: 1rem;
+  }
+  
+  .protocol-card {
+    min-height: 160px;
+    padding: 15px;
+  }
+  
+  .protocol-icon {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .priority-badge {
+    font-size: 0.6rem;
+    padding: 2px 6px;
+  }
+}
