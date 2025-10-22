@@ -42,65 +42,43 @@ const Dashboard = () => {
     }
   }
 
-  // Function to fetch predictions from backend
+  // Function to fetch predictions from backend (display only)
   const fetchPredictions = async (location = "") => {
     setPredictionLoading(true)
     try {
       const baseUrl = process.env.REACT_APP_PREDICTION_API_URL || 'https://thesis-backend-zrcb.onrender.com';
       const apiUrl = `${baseUrl}/predict_all`;
-      console.log('Fetching predictions from:', apiUrl);
-      
-      // First, try to check if the backend is accessible
-      try {
-        const healthResponse = await fetch(`${baseUrl}/health`, {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        });
-        console.log('Backend health check:', healthResponse.status);
-      } catch (healthError) {
-        console.warn('Backend health check failed:', healthError);
-      }
+      console.log('Fetching predictions from backend:', apiUrl);
       
       const response = await fetch(apiUrl, {
-        method: 'POST' || 'GET',
+        method: 'GET', // Use GET method as per backend support
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ location }),
-        mode: 'cors', // Explicitly set CORS mode
+        mode: 'cors',
       });
 
-      console.log('Response status:', response.status);
-      console.log('Response headers:', response.headers);
+      console.log('Prediction response status:', response.status);
 
       if (!response.ok) {
         const errorText = await response.text();
-        console.error('API Error Response:', errorText);
-        
-        // Handle specific error cases
-        if (response.status === 502) {
-          console.error('Backend server error (502) - prediction service may be down');
-          throw new Error('Prediction service temporarily unavailable');
-        }
-        
+        console.error('Prediction API Error:', errorText);
         throw new Error(`Prediction API error: ${response.status} - ${errorText}`);
       }
 
       const data = await response.json();
-      console.log('Prediction data received:', data);
-      setPredictions(data.predictions);
-    } catch (error) {
-      console.error("Error fetching predictions:", error)
+      console.log('Prediction data received from backend:', data);
       
-      // Check if it's a CORS error
-      if (error.message.includes('CORS') || error.message.includes('Access-Control-Allow-Origin')) {
-        console.error('CORS Error: Backend needs to include proper CORS headers');
-        console.error('Backend should include: Access-Control-Allow-Origin: https://thesis-website-deployment.onrender.com');
+      // Directly set the predictions from backend response
+      if (data.predictions) {
+        setPredictions(data.predictions);
+      } else {
+        throw new Error('No predictions data in backend response');
       }
+    } catch (error) {
+      console.error("Error fetching predictions from backend:", error)
       
-      // Set fallback predictions to show something instead of "unavailable"
+      // Set fallback predictions for display
       setPredictions({
         pm: [
           { 'PM2.5': 0, 'PM10': 0 },
@@ -1328,7 +1306,7 @@ const Dashboard = () => {
                   <div className="maintenance-text">UNDER MAINTENANCE</div>
                 ) : predictionLoading ? (
                   <div className="loading-text">Loading predictions...</div>
-                ) : predictions?.pm ? (
+                ) : predictions?.pm && Array.isArray(predictions.pm) ? (
                   (() => {
                     const pmData = predictions.pm.slice(0, 3); // Get first 3 hours
                     return (
@@ -1360,7 +1338,7 @@ const Dashboard = () => {
                   <div className="maintenance-text">UNDER MAINTENANCE</div>
                 ) : predictionLoading ? (
                   <div className="loading-text">Loading predictions...</div>
-                ) : predictions?.pm ? (
+                ) : predictions?.pm && Array.isArray(predictions.pm) ? (
                   (() => {
                     const pmData = predictions.pm.slice(0, 3); // Get first 3 hours
                     return (
@@ -1392,7 +1370,7 @@ const Dashboard = () => {
                   <div className="maintenance-text">UNDER MAINTENANCE</div>
                 ) : predictionLoading ? (
                   <div className="loading-text">Loading predictions...</div>
-                ) : predictions?.no2 ? (
+                ) : predictions?.no2 && Array.isArray(predictions.no2) ? (
                   (() => {
                     const no2Data = predictions.no2.slice(0, 3); // Get first 3 hours
                     return (
@@ -1424,7 +1402,7 @@ const Dashboard = () => {
                   <div className="maintenance-text">UNDER MAINTENANCE</div>
                 ) : predictionLoading ? (
                   <div className="loading-text">Loading predictions...</div>
-                ) : predictions?.co ? (
+                ) : predictions?.co && Array.isArray(predictions.co) ? (
                   (() => {
                     const coData = predictions.co.slice(0, 3); // Get first 3 hours
                     return (
