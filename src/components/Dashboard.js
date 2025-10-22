@@ -64,7 +64,7 @@ const Dashboard = () => {
       }
       
       const response = await fetch(apiUrl, {
-        method: 'POST',
+        method: 'POST' || 'GET',
         headers: {
           'Content-Type': 'application/json',
         },
