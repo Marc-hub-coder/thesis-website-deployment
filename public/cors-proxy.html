@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CORS Proxy</title>
+</head>
+<body>
+    <h1>CORS Proxy Test</h1>
+    <div id="result"></div>
+    
+    <script>
+        // Simple CORS proxy using a public service
+        async function testWithProxy() {
+            const backendUrl = 'https://thesis-backend-zrcb.onrender.com';
+            const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
+            
+            try {
+                console.log('Testing with CORS proxy...');
+                
+                // Test health endpoint through proxy
+                const healthResponse = await fetch(proxyUrl + backendUrl + '/health', {
+                    method: 'GET',
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest',
+                    },
+                });
+                
+                console.log('Health status:', healthResponse.status);
+                
+                if (healthResponse.ok) {
+                    const healthData = await healthResponse.json();
+                    console.log('Health data:', healthData);
+                    document.getElementById('result').innerHTML = '<p style="color: green;">✅ Backend accessible through proxy</p>';
+                } else {
+                    document.getElementById('result').innerHTML = '<p style="color: red;">❌ Backend not accessible</p>';
+                }
+            } catch (error) {
+                console.error('Proxy test failed:', error);
+                document.getElementById('result').innerHTML = '<p style="color: red;">❌ Proxy test failed: ' + error.message + '</p>';
+            }
+        }
+        
+        // Run the test
+        testWithProxy();
+    </script>
+</body>
+</html>

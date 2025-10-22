@@ -69,6 +69,7 @@ const Dashboard = () => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ location }),
+        mode: 'cors', // Explicitly set CORS mode
       });
 
       console.log('Response status:', response.status);
@@ -92,6 +93,13 @@ const Dashboard = () => {
       setPredictions(data.predictions);
     } catch (error) {
       console.error("Error fetching predictions:", error)
+      
+      // Check if it's a CORS error
+      if (error.message.includes('CORS') || error.message.includes('Access-Control-Allow-Origin')) {
+        console.error('CORS Error: Backend needs to include proper CORS headers');
+        console.error('Backend should include: Access-Control-Allow-Origin: https://thesis-website-deployment.onrender.com');
+      }
+      
       // Set fallback predictions to show something instead of "unavailable"
       setPredictions({
         pm: [
