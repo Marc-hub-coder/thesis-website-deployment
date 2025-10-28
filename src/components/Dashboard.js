@@ -760,9 +760,13 @@ const Dashboard = () => {
                 const latestRaw = sensorData?.no2Levels?.length > 0
                   ? sensorData.no2Levels[sensorData.no2Levels.length - 1].value
                   : null
-                const value = (latestRaw !== null && latestRaw !== undefined && !Number.isNaN(Number(latestRaw)))
-                  ? Number(latestRaw).toFixed(2)
-                  : "N/A"
+                let value = "N/A"
+                if (latestRaw !== null && latestRaw !== undefined && !Number.isNaN(Number(latestRaw))) {
+                  const n = Number(latestRaw)
+                  if (n === 0) value = "0.00"
+                  else if (Math.abs(n) < 0.01) value = n.toFixed(4)
+                  else value = n.toFixed(2)
+                }
                 return (
                   <>
                     <h2 className={isMaint ? "maintenance-text" : ""}>{isMaint ? "UNDER MAINTENANCE" : `${value} ppm`}</h2>
