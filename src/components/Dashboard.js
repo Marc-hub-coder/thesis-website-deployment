@@ -757,7 +757,12 @@ const Dashboard = () => {
               </div>
               {(() => {
                 const isMaint = sensorData?.maintenance?.dashboard
-                const value = sensorData?.no2Levels?.length > 0 ? sensorData.no2Levels[sensorData.no2Levels.length - 1].value : "N/A"
+                const latestRaw = sensorData?.no2Levels?.length > 0
+                  ? sensorData.no2Levels[sensorData.no2Levels.length - 1].value
+                  : null
+                const value = (latestRaw !== null && latestRaw !== undefined && !Number.isNaN(Number(latestRaw)))
+                  ? Number(latestRaw).toFixed(2)
+                  : "N/A"
                 return (
                   <>
                     <h2 className={isMaint ? "maintenance-text" : ""}>{isMaint ? "UNDER MAINTENANCE" : `${value} ppm`}</h2>
