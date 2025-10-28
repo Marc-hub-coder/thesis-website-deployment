@@ -30,6 +30,19 @@ const Dashboard = () => {
   const [predictions, setPredictions] = useState(null)
   const [predictionLoading, setPredictionLoading] = useState(false)
 
+  // Function to fetch predictions with debouncing
+  const fetchPredictionsDebounced = (() => {
+    let timeoutId = null
+    return () => {
+      if (timeoutId) clearTimeout(timeoutId)
+      timeoutId = setTimeout(() => {
+        fetchPredictions(selectedLocation).catch(err => {
+          console.error('Debounced prediction fetch failed:', err)
+        })
+      }, 1000) // Wait 1 second after last data change before fetching predictions
+    }
+  })()
+
   // Function to fetch sensor data
   const fetchSensorData = async (location = "") => {
     setIsLoading(true)
@@ -441,6 +454,7 @@ const Dashboard = () => {
 
   // Fetch data on mount and subscribe to realtime updates
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     let unsubscribe = null
     let unsubMaint = null
     let unsubAlert = null
@@ -456,6 +470,8 @@ const Dashboard = () => {
       // Start realtime subscription for selected location (or default)
       unsubscribe = sensorService.onRealtimeUpdates(selectedLocation, (processedData) => {
         setSensorData(processedData)
+        // Trigger prediction refresh when new sensor data arrives
+        fetchPredictionsDebounced()
       })
 
       // Subscribe to admin maintenance and public alert for cross-device realtime updates
@@ -490,11 +506,19 @@ const Dashboard = () => {
     }
     window.addEventListener("storage", onStorage)
 
+    // Set up periodic prediction refresh every 60 seconds
+    const predictionInterval = setInterval(() => {
+      fetchPredictions(selectedLocation).catch(err => {
+        console.error('Periodic prediction fetch failed:', err)
+      })
+    }, 60000) // Update predictions every 60 seconds
+
     return () => {
       if (typeof unsubscribe === "function") unsubscribe()
       if (typeof unsubMaint === "function") unsubMaint()
       if (typeof unsubAlert === "function") unsubAlert()
       window.removeEventListener("storage", onStorage)
+      clearInterval(predictionInterval)
     }
   }, [selectedLocation])
 
