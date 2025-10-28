@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import { FlaskConical, Factory, Wind } from "lucide-react"
 import { Link } from "react-router-dom"
 import "../styles/Dashboard.css"
 import "bootstrap/dist/css/bootstrap.min.css"
@@ -732,7 +733,7 @@ const Dashboard = () => {
                 <h4>
                   <strong>CO Readings</strong>
                 </h4>
-                <span className="card-icon">🔴</span>
+                <span className="card-icon" aria-label="CO icon"><FlaskConical size={20} /></span>
               </div>
               {(() => {
                 const isMaint = sensorData?.maintenance?.dashboard
@@ -752,7 +753,7 @@ const Dashboard = () => {
                 <h4>
                   <strong>NO2 Readings</strong>
                 </h4>
-                <span className="card-icon">🟡</span>
+                <span className="card-icon" aria-label="NO2 icon"><Factory size={20} /></span>
               </div>
               {(() => {
                 const isMaint = sensorData?.maintenance?.dashboard
@@ -771,7 +772,7 @@ const Dashboard = () => {
                 <h4>
                   <strong>PM2.5 Readings</strong>
                 </h4>
-                <span className="card-icon">🟠</span>
+                <span className="card-icon" aria-label="PM2.5 icon"><Wind size={20} /></span>
               </div>
               {(() => {
                 const isMaint = sensorData?.maintenance?.dashboard
@@ -790,7 +791,7 @@ const Dashboard = () => {
                 <h4>
                   <strong>PM10 Readings</strong>
                 </h4>
-                <span className="card-icon">🔵</span>
+                <span className="card-icon" aria-label="PM10 icon"><Wind size={20} /></span>
               </div>
               {(() => {
                 const isMaint = sensorData?.maintenance?.dashboard
