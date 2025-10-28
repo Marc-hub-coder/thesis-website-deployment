@@ -293,26 +293,7 @@ const AdminDashboard = () => {
             </div>
           </div>
 
-          {/* Reports Section */}
-          <div className="admin-section">
-            <h2 className="section-title">📊 Reports & Analytics</h2>
-            <div className="reports-highlight">
-              <div className="reports-info">
-                <h3>Generate Comprehensive Reports</h3>
-                <p>Create detailed reports for air quality data, system alerts, and maintenance activities.</p>
-                <ul>
-                  <li>📅 Daily, Weekly, Monthly, and Custom Date Range Reports</li>
-                  <li>📍 Location-based filtering and parameter selection</li>
-                  <li>📊 Summary statistics and detailed data tables</li>
-                  <li>🚨 System alerts and maintenance logs</li>
-                  <li>📤 CSV export and print functionality</li>
-                </ul>
-                <Link to="/admin/reports" className="reports-link">
-                  📊 Access Reports Dashboard →
-                </Link>
-              </div>
-            </div>
-          </div>
+          {/* Reports Section removed as requested */}
         </div>
 
         <div className="admin-actions">
