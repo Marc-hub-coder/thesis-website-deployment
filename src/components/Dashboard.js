@@ -30,6 +30,13 @@ const Dashboard = () => {
   const [predictions, setPredictions] = useState(null)
   const [predictionLoading, setPredictionLoading] = useState(false)
 
+  // Map raw device IDs to friendly names for display
+  const getLocationLabel = (loc) => {
+    if (!loc) return "";
+    // Default device shown as Sensor 1
+    return loc === '6C:C8:40:35:32:F4' ? 'Sensor 1' : loc;
+  }
+
   // Function to fetch predictions with debouncing
   const fetchPredictionsDebounced = (() => {
     let timeoutId = null
@@ -688,7 +695,7 @@ const Dashboard = () => {
                 <option value="">Select..</option>
                 {availableLocations.map((location, index) => (
                   <option key={index} value={location}>
-                    {location}
+                    {getLocationLabel(location)}
                   </option>
                 ))}
               </select>
