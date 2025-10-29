@@ -22,7 +22,7 @@
   justify-content: space-between;
   /* Extend navbar to full viewport width, breaking out of container constraints */
   position: relative;
-  width: 100vw;
+  width: 150vw;
   margin-left: calc(-50vw + 50%);
   box-sizing: border-box;
 }
