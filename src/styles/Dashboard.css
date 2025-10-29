@@ -20,6 +20,14 @@
   font-weight: bold;
   letter-spacing: 2px;
   justify-content: space-between;
+  /* Make navbar span full viewport width and stick to top while scrolling */
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100vw;
+  box-sizing: border-box;
+  z-index: 1100;
 }
 
 .dashboard-title {
