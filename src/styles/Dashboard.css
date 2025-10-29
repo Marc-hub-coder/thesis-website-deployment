@@ -20,10 +20,10 @@
   font-weight: bold;
   letter-spacing: 2px;
   justify-content: space-between;
-  /* Normal flow, but ensure it expands with page width during zoom */
+  /* Extend navbar to full viewport width, breaking out of container constraints */
   position: relative;
-  width: 100%;
-  min-width: 100%;
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
   box-sizing: border-box;
 }
 
