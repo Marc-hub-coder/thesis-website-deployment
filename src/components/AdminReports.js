@@ -236,6 +236,38 @@ const AdminReports = () => {
               </div>
             </div>
             
+            {/* Maintenance Occurrence Summary Banner */}
+            {reportData.maintenanceOccurrences && reportData.maintenanceOccurrences.length > 0 && (
+              <div className="system-status-display">
+                <div className={`status-indicator maintenance`}>
+                  <span className="status-icon">🔧</span>
+                  <span className="status-text">
+                    Maintenance occurred within this report range · {reportData.maintenanceOccurrences.length} occurrence{reportData.maintenanceOccurrences.length > 1 ? 's' : ''}
+                  </span>
+                </div>
+                <div className="table-container" style={{ marginTop: '8px' }}>
+                  <table className="data-table">
+                    <thead>
+                      <tr>
+                        <th>Start</th>
+                        <th>End</th>
+                        <th>Duration (hours)</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {reportData.maintenanceOccurrences.slice(0, 5).map((item, idx) => (
+                        <tr key={idx}>
+                          <td>{item.start || 'Unknown'}</td>
+                          <td>{item.end || 'Ongoing'}</td>
+                          <td>{item.durationMs != null ? (item.durationMs / (1000*60*60)).toFixed(2) : '—'}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            )}
+
             {/* Summary Cards */}
             <div className="summary-cards">
               <div className="summary-card">
