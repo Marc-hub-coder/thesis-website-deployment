@@ -1,6 +1,6 @@
 {
-  "short_name": "VOG AQ Admin",
-  "name": "VOG & Air Quality Dashboard - Admin",
+  "short_name": "VOG AQ",
+  "name": "VOG & Air Quality Dashboard",
   "icons": [
     {
       "src": "icon.png",
