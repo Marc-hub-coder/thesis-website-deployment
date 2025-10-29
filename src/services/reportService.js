@@ -52,10 +52,15 @@ class ReportService {
       const historicalData = await this.getHistoricalDataFromFirebase(config);
       console.log('Historical data length:', historicalData.length);
       
+      // Get maintenance history occurrences for the date range
+      const maintenanceHistory = await this.getMaintenanceHistory(config.startDate, config.endDate);
+      console.log('Maintenance history count:', maintenanceHistory.length);
+      
       return {
         sensorData,
         systemStatus,
-        historicalData
+        historicalData,
+        maintenanceHistory
       };
     } catch (error) {
       console.error('Error fetching actual data:', error);
@@ -474,7 +479,7 @@ class ReportService {
 
   // Generate report from actual data
   generateReportFromActualData(actualData, config) {
-    const { sensorData, systemStatus, historicalData } = actualData;
+    const { sensorData, systemStatus, historicalData, maintenanceHistory } = actualData;
     const { reportType, startDate, endDate, location, parameters } = config;
     
     // Calculate date range
@@ -487,6 +492,7 @@ class ReportService {
     let summary = {};
     let alerts = [];
     let maintenanceLog = [];
+    let maintenanceOccurrences = [];
     
     // Check if we have real Firebase data
     if (historicalData && historicalData.length > 0) {
@@ -495,6 +501,7 @@ class ReportService {
       summary = this.calculateSummaryFromRealData(dailyData, parameters);
       alerts = this.generateAlertsFromRealData(dailyData, daysDiff);
       maintenanceLog = this.generateMaintenanceLogFromRealData(daysDiff);
+      maintenanceOccurrences = maintenanceHistory || [];
     } else {
       // No data available for the selected date range - return empty report
       console.log(`No data found in database for date range ${startDate} to ${endDate}`);
@@ -502,6 +509,7 @@ class ReportService {
       summary = this.getEmptyReportSummary();
       alerts = [];
       maintenanceLog = [];
+      maintenanceOccurrences = [];
     }
 
     return {
@@ -509,6 +517,7 @@ class ReportService {
       dailyData: dailyData.slice(0, 100), // Limit to 100 rows for display
       alerts,
       maintenanceLog,
+      maintenanceOccurrences,
       systemStatus: historicalData && historicalData.length > 0 ? 'operational' : 'no_data',
       config: {
         reportType,
@@ -518,6 +527,47 @@ class ReportService {
         parameters
       }
     };
+  }
+
+  // Fetch maintenance history occurrences from Firebase within date range
+  async getMaintenanceHistory(startDate, endDate) {
+    try {
+      await ensureEmailPasswordAuth();
+      const start = new Date(startDate);
+      const end = new Date(endDate);
+      start.setHours(0,0,0,0);
+      end.setHours(23,59,59,999);
+      const startMs = start.getTime();
+      const endMs = end.getTime();
+
+      const snap = await db.ref('admin/maintenanceHistory').once('value');
+      if (!snap.exists()) return [];
+      const raw = snap.val() || {};
+      const items = Object.keys(raw).map((key) => ({ id: key, ...raw[key] }));
+      const occurrences = items
+        .map(item => {
+          const s = Number(item.startTime) || 0;
+          const e = item.endTime == null ? null : Number(item.endTime);
+          const startDateObj = new Date(s);
+          const endDateObj = e ? new Date(e) : null;
+          const inRange = (s <= endMs) && (e ? e >= startMs : true);
+          const durationMs = e ? Math.max(0, e - s) : null;
+          return {
+            start: isNaN(startDateObj.getTime()) ? null : startDateObj.toLocaleString(),
+            end: endDateObj && !isNaN(endDateObj.getTime()) ? endDateObj.toLocaleString() : 'Ongoing',
+            startTime: s,
+            endTime: e,
+            durationMs,
+            inRange
+          };
+        })
+        .filter(o => o.inRange)
+        .sort((a, b) => (b.startTime || 0) - (a.startTime || 0));
+      return occurrences;
+    } catch (error) {
+      console.error('Error fetching maintenance history:', error);
+      return [];
+    }
   }
 
   // Generate maintenance historical data
@@ -1184,6 +1234,16 @@ class ReportService {
     data.maintenanceLog.forEach(log => {
       csv += `${log.type},${log.date},"${log.description}","${log.technician}"\n`;
     });
+
+    // Maintenance occurrences section
+    if (data.maintenanceOccurrences && data.maintenanceOccurrences.length) {
+      csv += '\nMAINTENANCE OCCURRENCES\n';
+      csv += 'Start,End,Duration (hours)\n';
+      data.maintenanceOccurrences.forEach(item => {
+        const hours = item.durationMs != null ? (item.durationMs / (1000*60*60)).toFixed(2) : '';
+        csv += `${item.start},${item.end},${hours}\n`;
+      });
+    }
 
     return csv;
   }

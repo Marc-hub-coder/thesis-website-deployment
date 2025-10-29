@@ -379,6 +379,33 @@ const AdminReports = () => {
               </div>
             </div>
 
+            {/* Maintenance Occurrences */}
+            {reportData.maintenanceOccurrences && reportData.maintenanceOccurrences.length > 0 && (
+              <div className="maintenance-section">
+                <h3 className="subsection-title">🧰 Maintenance Occurrences</h3>
+                <div className="table-container">
+                  <table className="data-table">
+                    <thead>
+                      <tr>
+                        <th>Start</th>
+                        <th>End</th>
+                        <th>Duration (hours)</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {reportData.maintenanceOccurrences.map((item, idx) => (
+                        <tr key={idx}>
+                          <td>{item.start || 'Unknown'}</td>
+                          <td>{item.end || 'Ongoing'}</td>
+                          <td>{item.durationMs != null ? (item.durationMs / (1000*60*60)).toFixed(2) : '—'}</td>
+                        </tr>)
+                      )}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            )}
+
             {/* Export Options */}
             <div className="export-section">
               <h3 className="subsection-title">📤 Export Options</h3>

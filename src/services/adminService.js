@@ -22,6 +22,13 @@ class AdminService {
 
   async setMaintenanceSettings(settings) {
     await this.initAuth();
+    // Read previous settings to detect maintenance start/end transitions
+    let previous = null;
+    try {
+      const prevSnap = await db.ref('admin/maintenanceSettings').once('value');
+      previous = prevSnap.exists() ? prevSnap.val() : null;
+    } catch (_) { previous = null; }
+
     const safe = {
       dashboard: !!settings.dashboard,
       pm25Chart: !!settings.pm25Chart,
@@ -34,6 +41,35 @@ class AdminService {
     try {
       await db.ref('admin/maintenanceSettings').set(safe);
       localStorage.setItem('maintenanceSettings', JSON.stringify(safe));
+      // Determine maintenance mode transitions and log history
+      const wasMaint = !!(previous && (previous.dashboard || previous.pm25Chart || previous.pm10Chart || previous.coChart || previous.no2Chart || previous.aqiDisplay));
+      const isMaint = !!(safe.dashboard || safe.pm25Chart || safe.pm10Chart || safe.coChart || safe.no2Chart || safe.aqiDisplay);
+      const now = safe.updatedAt;
+      const historyRef = db.ref('admin/maintenanceHistory');
+
+      if (!wasMaint && isMaint) {
+        // Maintenance started: create a new history entry with startTime
+        try {
+          await historyRef.push({ startTime: now, endTime: null, createdAt: now });
+        } catch (_) {}
+      } else if (wasMaint && !isMaint) {
+        // Maintenance ended: find the most recent open entry and set endTime
+        try {
+          const snap = await historyRef.orderByChild('startTime').limitToLast(1).once('value');
+          if (snap.exists()) {
+            const entries = snap.val() || {};
+            const key = Object.keys(entries)[0];
+            const entry = entries[key] || {};
+            if (!entry.endTime) {
+              await historyRef.child(key).update({ endTime: now, updatedAt: now });
+            } else {
+              await historyRef.push({ startTime: entry.startTime || now, endTime: now, createdAt: now });
+            }
+          } else {
+            await historyRef.push({ startTime: now, endTime: now, createdAt: now });
+          }
+        } catch (_) {}
+      }
     } catch (_) {}
     return safe;
   }
