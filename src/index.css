@@ -8,8 +8,11 @@ body {
   /* Ensure page background always fills and avoids right-side gaps on zoom */
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-size: cover;
   min-height: 100vh;
-  overflow-x: hidden;
+  /* Keep horizontal scroll available when zooming in */
+  overflow-x: auto;
 }
 
 code {
